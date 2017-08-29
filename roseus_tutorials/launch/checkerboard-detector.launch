@@ -17,7 +17,7 @@
   <arg name="group" default="/" />
   <group ns="$(arg group)">
     <param name="single" value="$(arg single)" />
-    <param name="display" value="$(arg display)" />
+    <param name="display" value="0" />
     <param name="rect0_size_x" value="$(arg rect0_size_x)" />
     <param name="rect0_size_y" value="$(arg rect0_size_y)" />
     <param name="grid0_size_x" value="$(arg grid0_size_x)" />
@@ -29,6 +29,12 @@
     <node name="checkerboard_detector" pkg="checkerboard_detector"
           type="checkerboard_detector">
       <remap from="image" to="$(arg image)" />
+    </node>
+  </group>
+  <group if="$(arg display)">
+    <node name="$(anon image_view)"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="/camera/rgb/visualized_image" />
     </node>
   </group>
 
